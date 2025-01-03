@@ -4,6 +4,8 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+    // added NoImplicitAny and change strict to false to avoid red lines everywhere
+    //"noImplicitAny": false,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
