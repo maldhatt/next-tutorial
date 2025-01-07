@@ -1,7 +1,7 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
 
 // add Partial pre-rendering from next.config.ts
-export const experimental_ppr = true;
+// export const experimental_ppr = true; // commenting out, need latest Canary release
  
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
