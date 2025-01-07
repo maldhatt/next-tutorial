@@ -3,17 +3,17 @@ import RevenueChart from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
 // import query function
-import { fetchLatestInvoices, fetchCardData } from '@/app/lib/data';
+import { fetchCardData } from '@/app/lib/data';
 // import suspense for streaming data fetch timing
 import { Suspense } from 'react';
 // import Revenue chart skeleton to show better UI for loading
-import { RevenueChartSkeleton } from '@/app/ui/skeletons';
+import { RevenueChartSkeleton, LatestInvoicesSkeleton } from '@/app/ui/skeletons';
 
  
 export default async function Page() {
   // grab data here, streaming fetchRevenue to optimize load time with <Suspense> below
   // const revenue = await fetchRevenue();
-  const latestInvoices = await fetchLatestInvoices();
+  // const latestInvoices = await fetchLatestInvoices();
   const { 
     totalPaidInvoices,
     totalPendingInvoices, 
@@ -41,7 +41,9 @@ export default async function Page() {
         <Suspense fallback={<RevenueChartSkeleton />}>
           <RevenueChart />
         </Suspense>
-        <LatestInvoices latestInvoices={latestInvoices} />
+        <Suspense fallback={<LatestInvoicesSkeleton />} >
+          <LatestInvoices />
+        </Suspense>
       </div>
     </main>
   );

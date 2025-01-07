@@ -2,12 +2,21 @@ import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { lusitana } from '@/app/ui/fonts';
-import { LatestInvoice } from '@/app/lib/definitions';
-export default async function LatestInvoices({
-  latestInvoices,
-}: {
-  latestInvoices: LatestInvoice[];
-}) {
+//import { LatestInvoice } from '@/app/lib/definitions';
+// import fetchLatestInvoices from data.ts
+import { fetchLatestInvoices } from '@/app/lib/data';
+
+
+// export default async function LatestInvoices({
+export default async function LatestInvoices() { // remove props
+
+// Comment out below to stream/fetch data in this component versus in the page
+//   latestInvoices,
+// }: {
+//   latestInvoices: LatestInvoice[];
+// }) {
+
+  const latestInvoices = await fetchLatestInvoices(); // fetch data alongside component for streaming
   return (
     <div className="flex w-full flex-col md:col-span-4">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
