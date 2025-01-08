@@ -22,7 +22,7 @@ export async function createInvoice(formData: FormData) {
       status: formData.get('status'),
     });
     // Test it out:
-    console.log(rawFormData);
+    //console.log(rawFormData);
     const amountInCents = amount * 100; // store monetory values to eliminate JS floatin-point errors
     const date = new Date().toISOString().split('T')[0];
     
