@@ -22,10 +22,11 @@ export default function EditInvoiceForm({
   // pass invoice id to Server Action using JS bind to encode value & update the right id
   const updateInvoiceWithId = updateInvoice.bind(null, invoice.id);
   // return <form action={updateInvoiceWithId}></form>;
-
+// }
 
   return (
     <form action={updateInvoiceWithId}>
+    {/* <form> */}
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">

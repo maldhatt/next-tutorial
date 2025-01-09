@@ -27,14 +27,20 @@ export async function createInvoice(formData: FormData) {
     const amountInCents = amount * 100; // store monetory values to eliminate JS floatin-point errors
     const date = new Date().toISOString().split('T')[0];
     
-    // send to db
-    await sql`
-        INSERT INTO invoices (customer_id, amount, status, date)
-        VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
-    `;
+    try {
+      // send to db
+      await sql`
+          INSERT INTO invoices (customer_id, amount, status, date)
+          VALUES (${customerId}, ${amountInCents}, ${status}, ${date})
+      `;
+    } catch (error) {
+      return {
+        message: 'Database Error: Failed to Create Invoice.',
+      };
+    }
 
     revalidatePath('/dashboard/invoices'); // fetch fresh data from server
-    redirect('/dashboard/invoices'); // redirect user back 
+    redirect('/dashboard/invoices'); // redirect user back, will catch error from catch block 
     }
 
     
@@ -47,12 +53,29 @@ export async function updateInvoice(id: string, formData: FormData) {
  
   const amountInCents = amount * 100;
  
-  await sql`
-    UPDATE invoices
-    SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
-    WHERE id = ${id}
-  `;
+  try {
+    await sql`
+      UPDATE invoices
+      SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
+      WHERE id = ${id}
+    `;
+  } catch (error) {
+    return { message: 'Database Error: Failed to Create Invoice.'};
+  }
  
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
+}
+
+
+export async function deleteInvoice(id: string) {
+  try {
+    await sql`DELETE FROM invoices WHERE id = ${id}`;
+    revalidatePath('/dashboard/invoices');
+    return { message: 'Deleted Invoice.' };
+  } catch (error) {
+    return { message: 'Database Error: Failed to Delete Invoice.' };
+  }
+  // No need to call redirect since action is getting called on /dashboard/invoices path
+  // revalidatePath will trigger a new server request and re-render table
 }
