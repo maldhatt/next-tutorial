@@ -9,9 +9,8 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
-import { createInvoice } from '@/app/lib/actions'; // Server Actions
+import { createInvoice, State } from '@/app/lib/actions'; // Server Actions, State for Server-Side validation
 import { useActionState } from 'react'; // for Server-Side validation
-import { createInvoice, State } from '@/app/lib/actions'; // for Server-Side validation
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState: State = { message: null, errors: {} }; // grab state from actions.ts
