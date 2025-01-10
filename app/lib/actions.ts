@@ -100,9 +100,10 @@ export async function deleteInvoice(id: string) {
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
-    return { message: 'Deleted Invoice.' };
+    //return { message: 'Deleted Invoice.' };
   } catch (error) {
-    return { message: 'Database Error: Failed to Delete Invoice.' };
+    // return { message: 'Database Error: Failed to Delete Invoice.' };
+    throw new Error('Database Error: Failed to Delete Invoice.');
   }
   // No need to call redirect since action is getting called on /dashboard/invoices path
   // revalidatePath will trigger a new server request and re-render table
