@@ -13,8 +13,14 @@ import {
   LatestInvoicesSkeleton,
   CardsSkeleton,
  } from '@/app/ui/skeletons';
+ import { Metadata } from 'next';
 
- 
+
+export const metadata: Metadata = {
+  // title: 'Invoices | Acme Dashboard',
+  title: 'Dashboard',
+};
+
 export default async function Page() {
   // comment out getting data here to streaming fetchRevenue, fetchLatestInvoices, in components 
   // to optimize load time with <Suspense> below
